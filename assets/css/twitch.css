@@ -1,0 +1,16 @@
+body{
+    background-color: #6441a5;
+    color: #fff;
+}
+
+.tab-panel {
+    display: none;
+}
+
+.tab-panel.active {
+    display: block;
+}
+
+a:focus {
+    color: white;
+}
