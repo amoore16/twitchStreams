@@ -5,7 +5,8 @@ $(document).ready(function(){
     
     //gets JSON object for each streamer
     function getUserInfo(){
-       
+        var deferred = $.Deferred();                //sets up promise 
+
         //iterate through streamer array
         users.forEach(function(user){
                 $.getJSON("https://wind-bow.glitch.me/twitch-api/users/" + user, "callback=?",function(streamUser){
@@ -13,9 +14,9 @@ $(document).ready(function(){
                     statusInfo(streamUser);         //function checks if user is online
                     channelInfo(streamUser);        //function to get additional channel infos
                     usersInfo.push(streamUser);     //push to array
-                });       
+                });
         });
-        
+
         //checks stream status --user is object when called
         function statusInfo(streamUser){
             $.getJSON("https://wind-bow.glitch.me/twitch-api/streams/" + streamUser.name, "callback=?",function(json){
@@ -25,28 +26,32 @@ $(document).ready(function(){
                 } else {
                     streamUser.streamStatus = "offline";
                 }
-                
+                deferred.resolve();          
             });
         }
+
         //gets channel info
         function channelInfo(streamUser){
             $.getJSON("https://wind-bow.glitch.me/twitch-api/channels/" + streamUser.name, "callback=?",function(json){
-                streamUser.channelProps = json;  //add it to user object
+                streamUser.channelProps = json;                 //add it to user object
+                deferred.resolve();
             });
         }
-        
-        function postInfo(){
-            console.log(usersInfo.length);
-            usersInfo.forEach(function(streamUser){
-                console.log(streamUser);
-            })
-        }
-        postInfo();
+        return deferred.promise();      //returns after all other promises are resloved
     }
-    getUserInfo()
     
-    console.log(usersInfo);
+    //posts info to page
+    function postInfo(){
+        usersInfo.forEach(function(streamer){
+            console.log(streamer);
+        }); 
+    }
 
+    //call main function with promise
+    getUserInfo().done(function(){
+        postInfo();
+    });
+    
     //scripts for hiding and showing tabs
     $('.tab-list').each(function(){
         var $this = $(this);
