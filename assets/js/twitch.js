@@ -8,37 +8,43 @@ $(document).ready(function(){
        
         //iterate through streamer array
         users.forEach(function(user){
-                $.getJSON("https://wind-bow.glitch.me/twitch-api/users/" + user, "callback=?",function(json){
-                    
-                    user = json;            //turn user into the json object
-                    statusInfo(user);       //function checks if user is online
-                    channelInfo(user);      //function to get additional channel infos
-                    usersInfo.push(user);   //push to array
+                $.getJSON("https://wind-bow.glitch.me/twitch-api/users/" + user, "callback=?",function(streamUser){
+                                                    //turn user into the json object
+                    statusInfo(streamUser);         //function checks if user is online
+                    channelInfo(streamUser);        //function to get additional channel infos
+                    usersInfo.push(streamUser);     //push to array
                 });       
         });
         
         //checks stream status --user is object when called
-        function statusInfo(user){
-            $.getJSON("https://wind-bow.glitch.me/twitch-api/streams/" + user.name, "callback=?",function(json){
+        function statusInfo(streamUser){
+            $.getJSON("https://wind-bow.glitch.me/twitch-api/streams/" + streamUser.name, "callback=?",function(json){
             
                 if(json.stream != null){     //stream will return null if channel is offline
-                    user.streamStatus = "online";
+                    streamUser.streamStatus = "online";
                 } else {
-                    user.streamStatus = "offline";
+                    streamUser.streamStatus = "offline";
                 }
                 
             });
         }
         //gets channel info
-        function channelInfo(user){
-            $.getJSON("https://wind-bow.glitch.me/twitch-api/channels/" + user.name, "callback=?",function(json){
-                user.channelProps = json;  //add it to user object
+        function channelInfo(streamUser){
+            $.getJSON("https://wind-bow.glitch.me/twitch-api/channels/" + streamUser.name, "callback=?",function(json){
+                streamUser.channelProps = json;  //add it to user object
             });
         }
         
-
+        function postInfo(){
+            console.log(usersInfo.length);
+            usersInfo.forEach(function(streamUser){
+                console.log(streamUser);
+            })
+        }
+        postInfo();
     }
     getUserInfo()
+    
     console.log(usersInfo);
 
     //scripts for hiding and showing tabs
