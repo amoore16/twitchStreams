@@ -1,11 +1,11 @@
 $(document).ready(function(){
+     //setup arrays
     var users = ["freecodecamp", "day9tv", "nobbel87", "overwatchleague","asmongold"];
     var usersInfo=[];
+    
     //gets JSON object for each streamer
     function getUserInfo(){
-        //setup arrays
-        
-        
+       
         //iterate through streamer array
         users.forEach(function(user){
                 $.getJSON("https://wind-bow.glitch.me/twitch-api/users/" + user, "callback=?",function(json){
