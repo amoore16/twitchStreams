@@ -1,6 +1,18 @@
 body{
-    background-color: #6441a5;
-    color: #fff;
+    background-color: #000;
+    color: rgba(250, 250, 250, .8);
+    
+}
+.tab-list {
+    margin: 0px;
+    padding: 0px;
+}
+.tab-list li {
+    display: inline-block;
+    padding: 2%;
+    background-color: #392264;  
+    margin: 0px;
+    
 }
 
 .tab-panel {
@@ -9,7 +21,31 @@ body{
 
 .tab-panel.active {
     display: block;
+    background-color: #392264;
 }
+.tab-panel ul {
+    padding: 1%;
+    margin: 0px;
+}
+.tab-panel li {
+    background-color: #6441a5;
+    list-style: none;
+    padding: 4%;
+    margin: 2%;   
+}
+.tab-panel li img {
+    width: 10%;
+}
+.tab-panel li h3, .tab-panel li h2 {
+    display: inline-block;
+    margin: 2%;
+}
+
+body ul li  a {
+    text-decoration: none;
+    color: rgba(250, 250, 250, .8);
+}
+
 
 a:focus {
     color: white;
