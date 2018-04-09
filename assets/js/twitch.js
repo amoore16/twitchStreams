@@ -2,21 +2,22 @@ $(document).ready(function(){
      //setup arrays
     var users = ["freecodecamp", "day9tv", "nobbel87", "overwatchleague","asmongold"];
     var usersInfo=[];
+
+    
     
     //gets JSON object for each streamer
     function getUserInfo(){
-        var deferred = $.Deferred();                //sets up promise 
-
+        
         //iterate through streamer array
         users.forEach(function(user){
                 $.getJSON("https://wind-bow.glitch.me/twitch-api/users/" + user, "callback=?",function(streamUser){
                                                     //turn user into the json object
                     statusInfo(streamUser);         //function checks if user is online
-                    channelInfo(streamUser);        //function to get additional channel infos
-                    usersInfo.push(streamUser);     //push to array
+                    
                 });
+            
         });
-
+        return 
         //checks stream status --user is object when called
         function statusInfo(streamUser){
             $.getJSON("https://wind-bow.glitch.me/twitch-api/streams/" + streamUser.name, "callback=?",function(json){
@@ -26,31 +27,37 @@ $(document).ready(function(){
                 } else {
                     streamUser.streamStatus = "offline";
                 }
-                deferred.resolve();          
+                channelInfo(streamUser);        //function to get additional channel infos        
             });
         }
 
         //gets channel info
         function channelInfo(streamUser){
             $.getJSON("https://wind-bow.glitch.me/twitch-api/channels/" + streamUser.name, "callback=?",function(json){
-                streamUser.channelProps = json;                 //add it to user object
-                deferred.resolve();
+                
+            streamUser.channelProps = json;                 //add it to user object
+            postInfo(streamUser);   
             });
         }
-        return deferred.promise();      //returns after all other promises are resloved
+        
     }
     
     //posts info to page
-    function postInfo(){
-        usersInfo.forEach(function(streamer){
-            console.log(streamer);
-        }); 
+    function postInfo(streamUser){
+        var post = "<li><h2>" + streamUser.display_name + "</h2><span>" + streamUser.streamStatus + "</span></li>";
+        $("#tab-1 ul").append(post);
+
+        if (streamUser.streamStatus == "online"){
+            $("#tab-2 ul").append(post);
+        }
+        else {
+            $("#tab-3 ul").append(post);
+        }
     }
 
     //call main function with promise
-    getUserInfo().done(function(){
-        postInfo();
-    });
+    getUserInfo();
+    
     
     //scripts for hiding and showing tabs
     $('.tab-list').each(function(){
