@@ -4,25 +4,20 @@ $(document).ready(function(){
     
     //gets JSON object for each streamer
     
-        userLoop().then(function(streamUser){
-            postInfo(streamUser);
-        });
+        userLoop();
         //triangle of death
         function userLoop(){
-            return new Promise(function(resolve, reject){
-                users.forEach(function(user){
-                    getStreamerInfo(user).then(function(streamUser){
-                        statusInfo(streamUser).then(function(streamUser){
-                            channelInfo(streamUser).then(function(streamUser){
-                                postInfo(streamUser); 
-                                
-                            });
+            users.forEach(function(user){
+                getStreamerInfo(user).then(function(streamUser){
+                    statusInfo(streamUser).then(function(streamUser){
+                        channelInfo(streamUser).then(function(streamUser){
+                            postInfo(streamUser); 
+                            
                         });
                     });
-               
                 });
-            });
             
+            });            
         }
 
         //iterate through streamer array
@@ -76,6 +71,8 @@ $(document).ready(function(){
             }
             console.log(streamUser);
         }
+    
+    
     
     //scripts for hiding and showing tabs
     $('.tab-list').each(function(){
