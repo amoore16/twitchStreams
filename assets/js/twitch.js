@@ -4,18 +4,25 @@ $(document).ready(function(){
     
     //gets JSON object for each streamer
     
-        userLoop();
+        userLoop().then(function(streamUser){
+            postInfo(streamUser);
+        });
 
         function userLoop(){
-            users.forEach(function(user){
-                getStreamerInfo(user).then(function(streamUser){
-                    statusInfo(streamUser).then(function(streamUser){
-                        channelInfo(streamUser).then(function(streamUser){
-                            postInfo(streamUser);
+            return new Promise(function(resolve, reject){
+                users.forEach(function(user){
+                    getStreamerInfo(user).then(function(streamUser){
+                        statusInfo(streamUser).then(function(streamUser){
+                            channelInfo(streamUser).then(function(streamUser){
+                                postInfo(streamUser); 
+                                
+                            });
                         });
                     });
+               
                 });
             });
+            
         }
 
         //iterate through streamer array
@@ -59,13 +66,15 @@ $(document).ready(function(){
             // console.log(streamUser);
             
             if (streamUser.streamStatus === "online"){
+                // $("#tab-1 ul li").addClass("online");
                 $("#tab-2 ul").append(post);
                 $("#tab-1 ul li").last().append("<p>" + streamUser.channelProps.status + "</p>");
             }
             else {
                 $("#tab-3 ul").append(post);
+                $("#tab-1 ul li").last().addClass("offline");
             }
-
+            console.log(streamUser);
         }
     
     //scripts for hiding and showing tabs

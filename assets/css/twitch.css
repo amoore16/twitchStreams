@@ -1,8 +1,21 @@
 body{
-    background-color: #000;
+    background-color: rgb(34, 23, 66);
     color: rgba(250, 250, 250, .8);
     
 }
+#container {
+    min-width: 350px;
+    width: 30%;
+    margin: 0px auto;
+}
+
+h1 {
+    font-size: 1.5em;
+    background-color: #392264;
+    padding: 2%;
+    text-align: center;
+}
+
 .tab-list {
     margin: 0px;
     padding: 0px;
@@ -36,6 +49,12 @@ body{
 .tab-panel li img {
     width: 10%;
 }
+li h3 {
+    float: right;
+}
+li h2 {
+    vertical-align: top;
+}
 .tab-panel li h3, .tab-panel li h2 {
     display: inline-block;
     margin: 2%;
@@ -46,6 +65,9 @@ body ul li  a {
     color: rgba(250, 250, 250, .8);
 }
 
+.offline {
+    opacity: .5;
+}
 
 a:focus {
     color: white;
