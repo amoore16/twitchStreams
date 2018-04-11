@@ -1,13 +1,13 @@
 $(document).ready(function(){
      //setup arrays
-    var users = ["freecodecamp", "day9tv", "nobbel87", "overwatchleague","asmongold", "towelliee"];
+    var users = ["freecodecamp", "day9tv", "nobbel87", "overwatchleague","asmongold", "jdotb"];
     
     //gets JSON object for each streamer
     
         userLoop().then(function(streamUser){
             postInfo(streamUser);
         });
-
+        //triangle of death
         function userLoop(){
             return new Promise(function(resolve, reject){
                 users.forEach(function(user){
@@ -61,14 +61,14 @@ $(document).ready(function(){
         
         //posts info to page
         function postInfo(streamUser){
-            var post = "<li><h2>" + streamUser.display_name + "</h2></li>";
-            $("#tab-1 ul").append("<li><img src='" + streamUser.channelProps.logo + "'><h2>" + streamUser.display_name + "</h2><h3>" + streamUser.streamStatus + "</h3></li>");
+            var post = "<a href='" + streamUser.channelProps.url + "' target='_blank'><li><img src='" + streamUser.channelProps.logo + "'><h2>" + streamUser.display_name + "</h2><h3>" + streamUser.streamStatus + "</h3></li></a>";
             // console.log(streamUser);
-            
+            $("#tab-1 ul").append(post);
             if (streamUser.streamStatus === "online"){
                 // $("#tab-1 ul li").addClass("online");
                 $("#tab-2 ul").append(post);
                 $("#tab-1 ul li").last().append("<p>" + streamUser.channelProps.status + "</p>");
+                $("#tab-2 ul li").last().append("<p>" + streamUser.channelProps.status + "</p>");
             }
             else {
                 $("#tab-3 ul").append(post);

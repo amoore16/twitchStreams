@@ -1,18 +1,22 @@
 body{
     background-color: rgb(34, 23, 66);
     color: rgba(250, 250, 250, .8);
-    
+    font-family: 'Source Sans Pro', sans-serif;
+    text-shadow: 2px 2px 5px rgb(34, 23, 66);
+      
 }
 #container {
     min-width: 350px;
-    width: 30%;
+    width: 40%;
     margin: 0px auto;
+   
 }
 
-h1 {
+#logo {
     font-size: 1.5em;
     background-color: #392264;
     padding: 2%;
+    margin-bottom: 5%;
     text-align: center;
 }
 
@@ -24,7 +28,7 @@ h1 {
     display: inline-block;
     padding: 2%;
     background-color: #392264;  
-    margin: 0px;
+    
     
 }
 
@@ -43,8 +47,11 @@ h1 {
 .tab-panel li {
     background-color: #6441a5;
     list-style: none;
-    padding: 4%;
-    margin: 2%;   
+    padding: 2%;
+    margin: 2%;  
+}
+.tab-panel li:hover {
+    box-shadow: 5px 2px 5px rgb(34, 23, 66);
 }
 .tab-panel li img {
     width: 10%;
@@ -67,8 +74,14 @@ body ul li  a {
 
 .offline {
     opacity: .5;
+    
+}
+a {
+    text-decoration: none;
+    color: inherit;
 }
 
 a:focus {
     color: white;
 }
+
