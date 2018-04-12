@@ -34,12 +34,12 @@ $(document).ready(function(){
     function statusInfo(streamUser){
         return new Promise(function(resolve, reject){
             $.getJSON("https://wind-bow.glitch.me/twitch-api/streams/" + streamUser.name, "callback=?",function(json){
-                if(json.stream != null){     //stream will return null if channel is offline
+                if(json.stream != null){                        //stream will return null if channel is offline
                     streamUser.streamStatus = "online";
                 } else {
                     streamUser.streamStatus = "offline";
                 }
-                resolve(streamUser);        //function to get additional channel infos        
+                resolve(streamUser);               
             });
         });
         
@@ -61,7 +61,7 @@ $(document).ready(function(){
         // console.log(streamUser);
         $("#tab-1 ul").append(post);
         if (streamUser.streamStatus === "online"){
-            // $("#tab-1 ul li").addClass("online");
+            
             $("#tab-2 ul").append(post);
             $("#tab-1 ul li").last().append("<p>" + streamUser.channelProps.status + "</p>");
             $("#tab-2 ul li").last().append("<p>" + streamUser.channelProps.status + "</p>");
@@ -83,7 +83,7 @@ $(document).ready(function(){
             var $addStreamer = ($(this).val());
             $(this).val("");
             //check if streamer exists
-            
+            //if true, push to array and refresh
                 $.getJSON("https://wind-bow.glitch.me/twitch-api/users/" + $addStreamer, "callback=?",function(json){
                     if(json.error){
                         alert(json.message);
@@ -94,7 +94,7 @@ $(document).ready(function(){
                 });
             
 
-            //if true, push to array and refresh 
+             
             
         }
     });
