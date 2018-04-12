@@ -11,6 +11,11 @@ body{
     margin: 0px auto;
    
 }
+input {
+    margin-left: 10px;
+    padding: 5px;
+    outline: none;
+}
 
 #logo {
     font-size: 1.5em;
