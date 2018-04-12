@@ -8,16 +8,14 @@ $(document).ready(function(){
     //triangle of death
     function userLoop(){
         $(".tab-panel ul").empty();
-        users.forEach(function(user){                
+        users.forEach(function(user){                            
             getStreamerInfo(user).then(function(streamUser){
                 statusInfo(streamUser).then(function(streamUser){
                     channelInfo(streamUser).then(function(streamUser){
-                        postInfo(streamUser); 
-                        
+                        postInfo(streamUser);                         
                     });
                 });
             });
-            
         });            
     }
 
@@ -58,7 +56,7 @@ $(document).ready(function(){
     //posts info to page
     function postInfo(streamUser){
         var post = "<a href='" + streamUser.channelProps.url + "' target='_blank'><li><img src='" + streamUser.channelProps.logo + "'><h2>" + streamUser.display_name + "</h2><h3>" + streamUser.streamStatus + "</h3></li></a>";
-        // console.log(streamUser);
+        
         $("#tab-1 ul").append(post);
         if (streamUser.streamStatus === "online"){
             
@@ -70,7 +68,7 @@ $(document).ready(function(){
             $("#tab-3 ul").append(post);
             $("#tab-1 ul li").last().addClass("offline");
         }
-        console.log(streamUser);
+        
     }
     
     //add a streamer
@@ -84,18 +82,14 @@ $(document).ready(function(){
             $(this).val("");
             //check if streamer exists
             //if true, push to array and refresh
-                $.getJSON("https://wind-bow.glitch.me/twitch-api/users/" + $addStreamer, "callback=?",function(json){
-                    if(json.error){
-                        alert(json.message);
-                    } else {
-                        users.push($addStreamer);
-                        userLoop();
-                    }
-                });
-            
-
-             
-            
+            $.getJSON("https://wind-bow.glitch.me/twitch-api/users/" + $addStreamer, "callback=?",function(json){
+                if(json.error){
+                    alert(json.message);
+                } else {
+                    users.push($addStreamer);
+                    userLoop();
+                }
+            });
         }
     });
     
