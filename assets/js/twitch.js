@@ -1,7 +1,7 @@
 $(document).ready(function(){
      //setup arrays
     var users = ["freecodecamp", "day9tv", "nobbel87", "overwatchleague","asmongold"];
-    
+    var userArray = [];
     //gets JSON object for each streamer
     
     userLoop();
@@ -48,6 +48,7 @@ $(document).ready(function(){
         return new Promise(function(resolve, reject){
             $.getJSON("https://wind-bow.glitch.me/twitch-api/channels/" + streamUser.name, "callback=?",function(json){
                 streamUser.channelProps = json;                 //add it to user object
+                userArray.push(streamUser);
                 resolve(streamUser)
             });
         });
@@ -57,14 +58,15 @@ $(document).ready(function(){
     function postInfo(streamUser){
         var post = "<a href='" + streamUser.channelProps.url + "' target='_blank'><li><img src='" + streamUser.channelProps.logo + "'><h2>" + streamUser.display_name + "</h2><h3>" + streamUser.streamStatus + "</h3></li></a>";
         
-        $("#tab-1 ul").append(post);
+        
         if (streamUser.streamStatus === "online"){
-            
+            $("#tab-1 ul").prepend(post);
             $("#tab-2 ul").append(post);
-            $("#tab-1 ul li").last().append("<p>" + streamUser.channelProps.status + "</p>");
+            $("#tab-1 ul li").first().append("<p>" + streamUser.channelProps.status + "</p>");
             $("#tab-2 ul li").last().append("<p>" + streamUser.channelProps.status + "</p>");
         }
         else {
+            $("#tab-1 ul").append(post);
             $("#tab-3 ul").append(post);
             $("#tab-1 ul li").last().addClass("offline");
         }
