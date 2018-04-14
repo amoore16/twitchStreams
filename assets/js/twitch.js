@@ -1,10 +1,13 @@
 $(document).ready(function(){
      //setup arrays
-    var users = ["freecodecamp", "day9tv", "nobbel87", "overwatchleague","asmongold"];
+    var users = ["freecodecamp", "day9tv", "warcraft", "overwatchleague","starcraft"];
     var userArray = [];
     //gets JSON object for each streamer
-    
     userLoop();
+    setInterval(function(){
+        userLoop(); 
+    }, 60000);
+    
     //triangle of death
     function userLoop(){
         $(".tab-panel ul").empty();
