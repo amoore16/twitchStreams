@@ -12,8 +12,8 @@ body{
    
 }
 input {
-    margin-left: 10px;
-    padding: 5px;
+    margin: -2px 10px;
+    padding: 4px;
     outline: none;
 }
 
@@ -48,7 +48,7 @@ input {
 }
 .tab-panel ul {
     padding: 1%;
-    margin: 0px;
+    margin: -5px;
 }
 .tab-panel li {
     background-color: #6441a5;
